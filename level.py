@@ -16,13 +16,13 @@ class ExitDesk(pygame.sprite.Sprite):
         self.image.fill(EXIT_COLOR)
         self.rect = self.image.get_rect(topleft = (x,y))
 class Blueprint(pygame.sprite.Sprite):
-    def __int__(self,x,y):
+    def __init__(self,x,y):
         super().__init__()
         self.image = pygame.Surface((TILE_SIZE,TILE_SIZE))
         self.image.fill(BLUEPRINT_COLOR)
         self.rect = self.image.get_rect(topleft=(x,y))
 
-class TrialCheckpoint(pygame.sprite.Sprite):
+class TrialStart(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
         self.image = pygame.Surface((TILE_SIZE,TILE_SIZE))
