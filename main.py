@@ -36,7 +36,7 @@ class Game:
       self.all_sprites=pygame.sprite.Group()
       self.all_sprites.add(self.player)
 
-def handle_events(self):
+ def handle_events(self):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             self.running = False
@@ -56,7 +56,7 @@ def handle_events(self):
                     self.gadgets.deactivate_copter()
                 if event.key == pygame.K_t:
                     self.gadgets.stop_rewind()
-def process_web_commands(self):
+ def process_web_commands(self):
     commands = (self.communication.get_commands())
     for command in commands:
         if command == "left":
@@ -75,7 +75,7 @@ def process_web_commands(self):
             self.gadgets.start_rewind()
         elif command == "rewind_stop":
             self.gadgets.stop_rewind()    
-def update(self):
+ def update(self):
  
     #receive commands
     self.process_web_commands()
@@ -93,12 +93,12 @@ def update(self):
     if self.player.rect.top > (self.level.height+200) :
            self.reset_player()
  
-def send_network_state(self,dt):
+ def send_network_state(self,dt):
  #update shared status
     self.game_state.update_from_game(self.current_era,self.player,self.gadgets,self.challenges)
      #send JSON TO BROWSER
     self.communication.broadcast_state(self.game_state.to_dict())      
-def next_era(self):
+ def next_era(self):
     #already at final era
     if self.current_era >= 3:
        return
@@ -110,7 +110,7 @@ def next_era(self):
     self.reset_player()
     self.camera.set_world_width(self.level.width)
     self.camera.x = 0
-def reset_player(self):
+ def reset_player(self):
     self.player.position.x =100
     self.player.position.y =100
     self.player.velocity.x = 0
@@ -118,7 +118,7 @@ def reset_player(self):
     self.player.rect.topleft =(100,100)  
     self.player.on_ground = False
     self.camera.x =0
-def draw_background(self):
+ def draw_background(self):
     if self.current_era == 1:
         self.screen.fill(FEUDAL_SKY)
     elif self.current_era ==2:
@@ -126,7 +126,7 @@ def draw_background(self):
     elif self.current_era==3:
         self.screen.fill(FUTURE_SKY)
 
-def draw(self):
+ def draw(self):
     self.draw_background()
     self.level.draw(self.screen,self.camera)
     player_screen_rect = (self.camera.apply(self.player.rect))
@@ -134,7 +134,7 @@ def draw(self):
 
     pygame.display.flip()
 
-def run(self):
+ def run(self):
     while self.running:
         dt= self.clock.tick(FPS)/1000.0
         self.handle_events()
