@@ -1,0 +1,2 @@
+pygame-ce
+websockets==13.1

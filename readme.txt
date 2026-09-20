@@ -1,0 +1,1 @@
+its a doraemon inspired game where players have to face difficultis and challenges in order to gain doraemon different powers while through different eras of tokyo.
