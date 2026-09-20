@@ -81,3 +81,97 @@ ERA BREAKER style.css
         box-shadow:
         0 0 10px #00d9ff;
     }
+    .header h1 {
+        font-size: 45px;
+        letter-spacing: 8px;
+        color: #00d9ff;
+        text-shadow:
+        0 0 10px #00d9ff,
+        0 0 25px #00d9ff;
+    }
+    .header p {
+        margin-top: 10px;
+        letter-spacing: 5px;
+        color: #7defff;
+    }
+
+    /* ----panels---- */
+    .panel {
+        background: rgba(10,20,35,0.85);
+        border: 1px solid #176b88;
+        border-radius: 2px;
+        padding: 10px;
+        box-shadow: inset 0 0 20px rgba(0,150,255,0.04),
+        00 10px rgba(0,200,255,0.08);
+        transition: 0.3s;
+    }
+
+    /* pANEL HOVER */
+    .panel.hover {
+        border-color: cornflowerblue;
+        box-shadow: 0 0 15px rgba(0, 217, 255, 0.25);
+        transform: translateY(-2px);
+    }
+    .panel h2 {
+        font-size: 15px;
+        letter-spacing: 3px;
+        color:#65eaff;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #1a5268;
+        padding-bottom: 10px;
+    }
+
+    /*----current era----*/
+    .era-panel {
+        min-height: 180px;
+    }
+#era {
+    font-size: 30px;
+    margin-top: 25px;
+} 
+#eraDescription {
+    margin-top: 12px;
+    color: #8193a8;
+    font-size: 13px;
+}
+/*---player status---*/
+.player-panel {
+    min-height: 180px;
+}
+.player-panel p {
+    margin: 18px 0;
+    color: #9fb3c8;
+}
+#playerStatus {
+    color: #42ff9e;
+    font-weight: bold;
+    text-shadow: 0 0 8px #42ff9e;
+}
+
+/*----game progress----*/
+.progress-panel {
+    min-height: 180px;
+}
+.progress-bar {
+    width:100%;
+    height: 25px;
+    background: #050910;
+
+
+
+background: 1px solid #245269;
+margin-top: 30px;
+overflow: hidden;
+}
+#progressFill
+{ width: 0%;
+    height: 100%;
+    background: #00d9ff;
+    transition: width 0.5s;
+}
+#progressText {
+    text-align: right;
+    margin-top: 10px;
+    color: #00d9ff;
+    font-weight:bold;
+}
