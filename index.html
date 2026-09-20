@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ERA BREAKER -Mission Control</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="dashboard">
+            <!--HEADER-->
+            <header class="header">
+                <h1>ERA BREAKER</h1>
+                <P>MISSION CONTROL </P>
+            </header>
+
+            <!--current era-->
+            <section class="panel era-panel">
+                <h2>CURRENT ERA</h2>
+                <p id="eraDescription">
+                    Time period currently active
+                </p>
+            </section>
+
+            <!--PLAYER STATUS-->
+            <section class="panel player-panel">
+                <h2>PLAYER STATUS</h2>
+                <p>
+                    Status:
+                    <span id="playerStatus">ONLINE</span>
+                </p>
+
+                <p>
+                    Position:
+                    <span id="playerPosition">0, 0</span>
+                </p>
+            </section>
+
+            <!--GAME PROGRESS-->
+            <section class="panel progress-panel">
+                <h2>GAME PROGRESS</h2>
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+                <p id="progressText">0%</p>
+            </section>
+
+            <!--GADGET STATUS-->
+<section class="panel gadget-panel">
+
+    <h2>GADGET STATUS</h2>
+    <!--bamboo copter-->
+<div class="gadget">
+
+    <h3>BAMBOO COPTER</h3>
+    <div class="fuel-bar">
+        <div id="fuel-bar"></div>
+    </div>
+
+    <p>
+        fuel:
+        <span id="fuelText"></span>
+    
+    </p>
+<button id="copterBtn">
+    ACTIVATE COPTER
+</button>
+</div>
+
+<!--time machine-->
+<div class="gadget">
+
+    <h3>TIME MACHINE</h3>
+    <P>
+    Charges:
+    <span id="charges">3</span> </P>
+    <button id="rewindBtn">
+        REWIND TIME
+    </button>
+    
+</div>
+
+</section>
+
+<!--movement controls-->
+<section class="panel controls-panel">
+<h2>MOVEMENT CONTROLS</h2>
+<div class="movement-controls">
+    <button id="jumpBtn">
+        ▲
+    </button>
+    <div class="middle-controls">
+        <button id="leftBtn">
+            ◀
+        </button>
+        <button id="stopBtn">
+            ■
+        </button>
+        <button id="rightBtn">
+            ▶
+        </button>
+    </div>
+</div>
+</section>
+
+<!--connection status-->
+<section class="panel connection-panel">
+
+    <h2>PYGAME CONNECTION</h2>
+    <p> 
+        cONNECTION:
+        <span id="connectionStatus">
+            Disconnected
+        </span>
+    </p>
+</section>
+
+<!--footer-->
+<footer class="footer">
+    <p>
+        Era Breaker // mission control
+    </p>
+</footer>
+
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
