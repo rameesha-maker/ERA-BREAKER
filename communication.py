@@ -53,6 +53,7 @@ class CommunicationServer:
             return
         message = json.dumps(state)
         asyncio.run_coroutine_threadsafe(self._broadcast(message),self.loop)
+        self.send_state(state)
 
     async def _broadcast(self,message):
         if not self.clients:

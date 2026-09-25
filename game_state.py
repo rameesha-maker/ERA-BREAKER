@@ -48,6 +48,7 @@ class GameState:
                 "copter_fuel":(self.copter_fuel),
                 "rewinding":(self.rewinding),
                 } ,
-                "challenge": self.challenge,
+                "challenges": {"completed": self.challenge_count},
+                "completed": self.completed,
                 "timestamp":self.timestamp
         }

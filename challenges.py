@@ -12,7 +12,7 @@ class ChallengeManager:
         self.current_checkpoint = 0
         self.trial_timer = 0
         self.total_checkpoints = (len(self.level.trial_checkpoints))
-    def update(self):
+    def update(self,player):
         self.check_blueprints()
         self.update_trial()
     def check_blueprints(self):
