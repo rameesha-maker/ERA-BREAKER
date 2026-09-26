@@ -12,6 +12,7 @@ class CommunicationServer:
         self.loop = None
         self.thread = None
         self.running = False
+        self.server = None
     def start(self):
         self.thread = threading.Thread(target=self._run_server,
                                        daemon = True)
@@ -25,10 +26,17 @@ class CommunicationServer:
         self.loop.run_until_complete(self._server())
 
     async def _server(self):
-        async with websockets.serve(self._handle_client,WEBSOCKET_HOST,WEBSOCKET_PORT):
-            print(f"[WEB] WebSocket server is running at "
-                  f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}")
-            await asyncio.Future()
+        self.server = await websockets.serve(self._handle_client,WEBSOCKET_HOST,WEBSOCKET_PORT)
+        print(f"[WEB] WebSocket server is running at "
+            f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}")
+        await self.server.wait_closed()
+
+    def stop(self):
+        self.running = False
+        if self.loop and self.server:
+            self.loop.call_soon_threadsafe(self.server.close)
+        if self.thread and self.thread.is_alive():
+            self.thread.join(timeout = 1)
 
     async def _handle_client(self,websocket,path=None):
         self.clients.add(websocket)

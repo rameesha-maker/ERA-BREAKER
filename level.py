@@ -1,3 +1,4 @@
+
 import pygame
 from settings import *
 from maps import ERA_MAPS
@@ -42,7 +43,7 @@ class Level:
         self.current_era = era
         self.platforms = pygame.sprite.Group()
         self.blueprints = pygame.sprite.Group()
-        self.trial_starts = pygame.sprite.Group()
+        self.trial_start = None
         self.trial_chekpoints = []
         self.exit_desk = None
         self.width = 0
@@ -81,8 +82,7 @@ class Level:
                     blueprint = Blueprint(x,y)
                     self.blueprints.add(blueprint)
                 elif tile_type =="T":
-                    trial_start = (TrialStart(x,y))
-                    self.trial_starts.add(trial_start)
+                    self.trial_start = (TrialStart(x,y))
                 elif tile_type in ("1","2","3"):
                     checkpoint = TrialCheckpoint(x,y,int(tile_type))
                     self.trial_checkpoints.append(checkpoint)
@@ -115,4 +115,8 @@ class Level:
         if self.exit_desk:
             screen_rect = camera.apply(self.exit_desk.rect)
             screen.blit(self.exit_desk.image,screen_rect)                       
+
+
+                   
+
 

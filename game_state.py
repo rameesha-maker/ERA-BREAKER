@@ -1,3 +1,4 @@
+
 import time 
 class GameState:
     def __init__(self):
@@ -48,7 +49,6 @@ class GameState:
                 "copter_fuel":(self.copter_fuel),
                 "rewinding":(self.rewinding),
                 } ,
-                "challenges": {"completed": self.challenge_count},
-                "completed": self.completed,
+                "challenge": self.challenge,
                 "timestamp":self.timestamp
         }

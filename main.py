@@ -106,8 +106,8 @@ class Game:
     for blueprint in self.level.blueprints:
         if pygame.sprite.collide_rect(self.player,blueprint):
             self.gadgets.has_copter = True
-    for trial in self.level.trial_starts:
-        if pygame.sprite.collide_rect(self.player,trial):
+    if self.level.trial_start is not None:
+        if pygame.sprite.collide_rect(self.player,self.level.trial_start):
             self.challenges.start_trial()
     if self.player.rect.right> self.level.width:
         self.player.rect.right = self.level.width
@@ -172,6 +172,8 @@ class Game:
         self.update()
         self.send_network_state(dt)
         self.draw()
+        if self.communication:
+            self.communication.stop()
     pygame.quit()
     sys.exit()
 
