@@ -232,4 +232,100 @@ else {
 
 
 /*stop*/ 
+document
+.getElementById("stopBtn")
+.addEventListener("click", function () {
+    stopPlayer();
+});
 
+/*jump*/
+document
+.getElementById("jumpBtn")
+.addEventListener("click", function()
+{
+    jump();
+});
+
+/*bamboo copter*/
+document
+.getElementById("copterBtn")
+.addEventListener("click", function()
+{
+    activateCopter();
+});
+
+/*time machine*/
+document
+.getElementById("rewindBtn")
+.addEventListener("click", function()
+{
+    rewindTime();
+});
+
+/*keyboard controls*/
+document.addEventListener("keydown", function(event)
+{
+    /*left*/
+    if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        moveLeft();
+    }
+    /*right*/
+    if (event.key === "ArrowRight") {
+        event.preventDefault();
+        moveRight();
+    }
+
+    /*up*/
+    if (event.key === "ArrowUp") {
+        event.preventDefault();
+        jump();
+    }
+    /*space*/
+    if (event.code === "Space") {
+        event.preventDefault();
+        stopPlayer();
+    }
+});
+
+/*stimulated game progress*/
+/* this is for testing only*/
+setInterval(function() {
+    if (progress < 100 && isMoving) {
+        progress++;
+        updateProgress();
+    }
+}, 1000);
+/*stimulated player movement */
+/*player positions *only in testing*/
+
+setInterval(function()
+{
+    if (isMoving) {
+        if (currentDirection === "RIGHT") {
+            playerX += 2;
+        }
+        else if (currentDirection === "LEFT") {
+            playerX -= 2;
+        }
+        updatePlayerPosition();
+    }
+}, 500);
+/*connection test replace this later*/
+setTimeout (function()
+{
+connectionStatus.textContent = "CONNECTED";
+
+connectionStatus.style.textShadow = 
+"0 0 8px #42ff9e";
+}, 1500);
+/*initial game state */
+updateFuel();
+updateCharges();
+updateProgress();
+updatePlayerPosition();
+updatePlayerStatus("ONLINE");
+changeEra("FEUDAL JAPAN");
+
+/*test commands*/
+/* i hATE BUGS */

@@ -33,8 +33,8 @@ ERA BREAKER style.css
         height: 100%;
 
         background:
-        linear-gradient(rgba(7,11,20,0.85),
-        rgba(7,11,20,0.95)),
+        linear-gradient(rgba(16, 7, 20, 0.85),
+        rgba(16, 7, 20, 0.95)),
         repeating-linear-gradient(90deg,
         transparent,
         transparent 80px,
@@ -65,9 +65,9 @@ ERA BREAKER style.css
         grid-column: 1/4;
         text-align: center;
         padding: 30px;
-        border: 1px solid #00d9ff;
-        background: rgba(0,20,40,0.8);
-        box-shadow: 0 0 15 px rgba(0,217, 255, 0.3);
+        border: 1px solid #dbe72c;
+        background: rgba(75, 2, 32, 0.8);
+        box-shadow: 0 0 15 px rgba(82, 2, 22, 0.3);
         position:relative;
     }
     /* little line underneath title */
@@ -77,47 +77,47 @@ ERA BREAKER style.css
         bottom: -5px;
         left: 20%;
         width: 2px;
-        background : #00d9ff;
+        background : #badf18;
         box-shadow:
-        0 0 10px #00d9ff;
+        0 0 10px #d3f516;
     }
     .header h1 {
         font-size: 45px;
         letter-spacing: 8px;
-        color: #00d9ff;
+        color: #d6fd27;
         text-shadow:
-        0 0 10px #00d9ff,
-        0 0 25px #00d9ff;
+        0 0 10px #3d073d,
+        0 0 25px #570e5a;
     }
     .header p {
         margin-top: 10px;
         letter-spacing: 5px;
-        color: #7defff;
+        color: #d1ff7d;
     }
 
     /* ----panels---- */
     .panel {
-        background: rgba(10,20,35,0.85);
-        border: 1px solid #176b88;
-        border-radius: 2px;
+        background: rgba(255, 245, 110, 0.85);
+        border: 40px solid #042e1c;
+        border-radius: 10px;
         padding: 10px;
-        box-shadow: inset 0 0 20px rgba(0,150,255,0.04),
-        00 10px rgba(0,200,255,0.08);
+        box-shadow: inset 0 0 20px rgba(100, 253, 86, 0.863),
+        00 10px rgba(99, 245, 94, 0.959);
         transition: 0.3s;
     }
 
     /* pANEL HOVER */
     .panel.hover {
-        border-color: cornflowerblue;
-        box-shadow: 0 0 15px rgba(0, 217, 255, 0.25);
+        border-color: rgb(59, 6, 6);
+        box-shadow: 0 0 15px rgba(107, 187, 201, 0.952);
         transform: translateY(-2px);
     }
     .panel h2 {
         font-size: 15px;
         letter-spacing: 3px;
-        color:#65eaff;
+        color:#3d033a;
         margin-bottom: 20px;
-        border-bottom: 1px solid #1a5268;
+        border-bottom: 1px solid #775cc2;
         padding-bottom: 10px;
     }
 
@@ -131,7 +131,7 @@ ERA BREAKER style.css
 } 
 #eraDescription {
     margin-top: 12px;
-    color: #8193a8;
+    color: #3f050f;
     font-size: 13px;
 }
 /*---player status---*/
@@ -140,12 +140,12 @@ ERA BREAKER style.css
 }
 .player-panel p {
     margin: 18px 0;
-    color: #9fb3c8;
+    color: #027cff;
 }
 #playerStatus {
-    color: #42ff9e;
+    color: #0d6136;
     font-weight: bold;
-    text-shadow: 0 0 8px #42ff9e;
+    text-shadow: 0 0 8px #0df07b;
 }
 
 /*----game progress----*/
@@ -155,24 +155,24 @@ ERA BREAKER style.css
 .progress-bar {
     width:100%;
     height: 25px;
-    background: #050910;
+    background: #c4b6eb;
 
 
 
-background: 1px solid #245269;
+background: 10px solid #245269;
 margin-top: 30px;
 overflow: hidden;
 }
 #progressFill
 { width: 0%;
     height: 100%;
-    background: #00d9ff;
+    background: #4301ad;
     transition: width 0.5s;
 }
 #progressText {
     text-align: right;
     margin-top: 10px;
-    color: #00d9ff;
+    color: #850832;
     font-weight:bold;
 }
 /*--gadget panel--*/
@@ -182,12 +182,12 @@ overflow: hidden;
 .gadget {
     margin-bottom: 30px;
     padding: 20px;
-    background: rgba(0, 10, 20, 0.5);
-    border: 1px solid #163d4d;
+    background: rgba(18, 1, 94, 0.575);
+    border: 10px solid #163d4d;
     border-radius: 8px;
 }
 .gadget h3 {
-    color: #ffffff;
+    color: #56fa51;
     font-size: 15px;
     letter-spacing:  2px;
     margin-bottom: 15px;
@@ -197,8 +197,8 @@ overflow: hidden;
 .fuel-bar {
     width: 100%;
     height: 22px;
-    background: #050910;
-    border: 1px solid #245269;
+    background: #101722;
+    border: 3px solid #206283;
     overflow: hidden;
     margin-bottom: 10px;
 
@@ -206,44 +206,44 @@ overflow: hidden;
 #fuelFill {
     width: 100%;
     height: 100%;
-    background: #42ff9e;
-    box-shadow: 0 0 12px #42ff9e;
+    background: #d75df0;
+    box-shadow: 0 0 12px #d773f5;
     transition: width 0.4s;
 }
 .gadget p {
-    color: #9fb3c8;
+    color: #f82bf8;
     margin: 10px 0;
 }
  #fuelText {
-    color: #42ff9e;
+    color: #d83bff;
     font-weight: bold;
  }
 
  #charges {
-color: #00d9ff;
+color: #4cfd78;
 font-size: 22px;
 font-weight: bold;
  }
 
  /*---buttons---*/
  button {
-    border: 1px solid #00d9ff;
-    background: #071722;
-    color: #00d9ff;
+    border: 1px solid #3ce967;
+    background: #0a4e26;
+    color: #ccf02a;
     padding: 12px 20px;
     font-size: 12px;
 font-weight: bold;
     letter-spacing: 1px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: 0.2s;
+    border-radius: 18px;
+    transition: 0.42s;
  }
 
  button:hover {
-    background: #00d9ff;
+    background: #6cd5e7;
     color: #02060c;
     padding: 12px 20px;
-    box-shadow: 0 0 15px #00d9ff;
+    box-shadow: 0 0 15px #f75cc3;
  }
 
  button:active {
@@ -293,14 +293,14 @@ font-weight: bold;
  }
 
  #rewindBtn {
-    border-color: #b86cff;
-    color: #b86cff;
+    border-color: #ff6cc7;
+    color: #6cacff;
  }
 
  #rewindbtn:hover {
-    background: #b86cff;
-    color: white;
-    box-shadow: 0 0 15px #b86cff;
+    background: #510499;
+    color: rgb(56, 7, 85);
+    box-shadow: 0 0 15px #39046b;
  }
 
  /*--connection--*/
@@ -310,9 +310,9 @@ font-weight: bold;
  }
 
  #connectionStatus {
-    color: #ff5864;
+    color: #3a0206;
     font-weight: bold;
-    text-shadow: 0 0 8px #ff5864;
+    text-shadow: 0 0 8px #4b0308;
  }
 
  /*--footer--*/
@@ -320,7 +320,7 @@ font-weight: bold;
     grid-column: 1/4;
     text-align: center;
     padding: 15px;
-    color: #40576b;
+    color: #6ab5f7;
     font-size: 11px;
     letter-spacing: 3px;
  }
