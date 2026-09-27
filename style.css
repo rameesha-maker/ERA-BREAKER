@@ -360,6 +360,7 @@ repeating-linear-gradient(
     rgba (255,255,255, 0.015) 4px
 );
 }
+/*feudal era theme*/
 body.feudal -panel {
     background: rgba(55, 30, 20, 0.92);
     border-color: #9b5a3c;
@@ -376,6 +377,50 @@ body.feudal button {
 body.feudal button:hover {
     background: #8b3828;
     box-shadow: 0 0 20px rgba(212, 158, 8, 0.849);
+}
+ 
+/*modern era theme*/
+body.modern {
+    background: 
+    linear-gradient(rgba(10, 25, 45, 0.9), rgba(5, 15, 30, 0.95)),
+    repeating-linear-gradient(
+        90deg,
+        #102438 0px,
+        #102438 2px,
+        #0b1c2c 2px,
+        #0b1c2c 80px
+    );
+    color: #eaf6ff;
+}
+
+body.modern .header {
+    border-color: #00aaff;
+    box-shadow: 0 0 25px rgba(0, 170, 255, 0.4);
+}
+
+body.modern.header h1 {
+    color: #4dc9ff;
+    text-shadow: 0 0 15px rgba(77, 201, 255, 0.7);
+}
+
+body.modern .panel {
+    background: rgba(12, 32, 52, 0.9);
+    border-color: #248dcc;
+    box-shadow: 0 0 15px rgba(36, 141, 204, 0.25);
+}
+body.modern .panel h2 {
+    color: #4dc9ff;
+}
+
+body.modern button{
+    background: #123d5c;
+    border-color: #4dc9ff;
+    color: #eaf6ff;
+}
+
+body.modern button:hover {
+    background: #18577f;
+    box-shadow: 0 o 20px rgba(77,201, 255, 0.5);
 }
 
 
