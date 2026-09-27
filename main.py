@@ -13,7 +13,8 @@ from menu import Menu
 from pause_screen import PauseScreen
 from completion_screen import CompletionScreen
 from game_modes import GameMode
-
+from how_to_play import HowToPlay
+from settings_screen import SettingsScreen
 class Game:
  def __init__(self):
 
@@ -40,9 +41,11 @@ class Game:
 
       self.game_mode = GameMode.MENU
       self.hud = HUD(SCREEN_WIDTH)
-      self.menu = Menu(SCREEN_WIDTH,SCREEN_HEIGHT)
-      self.pause_screen = PauseScreen(SCREEN_WIDTH,SCREEN_HEIGHT)
-      self.completion_screen = CompletionScreen(SCREEN_WIDTH,SCREEN_HEIGHT)
+      self.menu = Menu()
+      self.how_to_play = HowToPlay()
+      self.pause_screen = PauseScreen()
+      self.completion_screen = CompletionScreen()
+      self.settings_screen = SettingsScreen()
       #sprites
       self.all_sprites=pygame.sprite.Group()
       self.all_sprites.add(self.player)
@@ -51,26 +54,48 @@ class Game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             self.running = False
-        elif event.type == pygame.KEYDOWN:
-            if self.game_mode == GameMode.MENU:
-             if event.key ==pygame.K_RETURN:
-                 self.game_mode = (GameMode.PLAYING)
-            elif self.game_mode == GameMode.PLAYING:
-                if event.key == pygame.K_ESCAPE:
-                    self.game_mode = (GameMode.PAUSED)
-                elif event.key in (pygame.K_SPACE,pygame.K_w,pygame.K_UP):
-                    self.player.jump()
-                elif event.key == pygame.K_c:
-                    self.gadgets.activate_copter()
+            continue
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if self.game_mode == GameMode.MENU:
+                    clicked = self.menu.handle_click(event.pos)
+                    if clicked =="START GAME":
+                        continue
+                    elif clicked == "HOW TO PLAY":
+                        self.game_mode = GameMode.HOW_TO_PLAY
+                        self.how_to_play.draw(self.screen)
+                    elif clicked == "SETTINGS":
+                        self.game_mode = GameMode.SETTINGS
+                        continue
+                    
+        
+        if event.type != pygame.KEYDOWN:
+            continue
+        if self.game_mode == GameMode.MENU:
+            if event.key ==pygame.K_RETURN:
+                self.game_mode = (GameMode.PLAYING)
+            elif event.key == pygame.K_h:
+                self.game_mode = GameMode.HOW_TO_PLAY
+        elif self.game_mode == GameMode.PLAYING:        
+            if event.key == pygame.K_ESCAPE:
+                self.game_mode = (GameMode.PAUSED)
+            elif event.key in (pygame.K_SPACE,pygame.K_w,pygame.K_UP):
+                self.player.jump()
+            elif event.key == pygame.K_c:
+                self.gadgets.activate_copter()
+            elif event.key == pygame.K_t:
+                self.gadgets.start_rewind()
             #playing
-            elif self.game_mode == GameMode.PAUSED:
+        elif self.game_mode == GameMode.PAUSED:
                 if event.key == pygame.K_ESCAPE:
                     self.game_mode = (GameMode.PLAYING)
-
+        elif self.game_mode == GameMode.HOW_TO_PLAY:
+            if event.key == pygame.K_ESCAPE:
+                self.game_mode = GameMode.COMPLETED
             #comleted
-            elif self.game_mode == GameMode.COMPLETED:
-                if event.key == pygame.K_RETURN:
-                    self.game_mode = (GameMode.MENU)
+        elif self.game_mode == GameMode.COMPLETED:
+            if event.key == pygame.K_RETURN:
+                self.game_mode = (GameMode.MENU)
 
 
  def process_web_commands(self):
@@ -124,6 +149,7 @@ class Game:
  def next_era(self):
     #already at final era
     if self.current_era >= 3:
+       self.game_mode = GameMode.COMPLETED
        return
     #move to next era
     self.current_era +=1
@@ -152,15 +178,24 @@ class Game:
  def draw(self):
     if self.game_mode == GameMode.MENU:
         self.menu.draw(self.screen)
-        return
-    self.draw_background()
-    self.level.draw(self.screen,self.camera)
-    player_screen_rect = (self.camera.apply(self.player.rect))
-    self.screen.blit(self.player.image,player_screen_rect)
-    self.hud.draw(self.screen,self.current_era,self.gadgets,self.challenges)
-    if self.game_mode == GameMode.PAUSED:
+    elif self.game_mode == GameMode.HOW_TO_PLAY:
+        self.how_to_play.draw(self.screen)
+
+    elif self.game_mode == GameMode.PLAYING:
+
+        self.draw_background()
+        self.level.draw(self.screen,self.camera)
+        player_rect = (self.camera.apply(self.player.rect))
+        self.screen.blit(self.player.image,player_rect)
+        self.hud.draw(self.screen,self.current_era,self.gadgets,self.challenges)
+    elif self.game_mode == GameMode.PAUSED:
+        self.draw_background()
+        self.level.draw(self.screen,self.camera)
+        player_rect = self.camera.apply(self.player.rect)
+        self.screen.blit(self.player.image,player_rect)
         self.pause_screen.draw(self.screen)
-        return
+    elif self.game_mode == GameMode.COMPLETED:
+        self.completion_screen.draw(self.screen)
 
     pygame.display.flip()
 
