@@ -360,7 +360,23 @@ repeating-linear-gradient(
     rgba (255,255,255, 0.015) 4px
 );
 }
-
+body.feudal -panel {
+    background: rgba(55, 30, 20, 0.92);
+    border-color: #9b5a3c;
+    box-shadow: 0 0 15px rgba(155, 90, 60, 0.3);
+}
+body.feudal .panel h2 {
+    color: #e8b04b;
+}
+body.feudal button {
+    background:  #6e2c20;
+    border-color: #d4a24c;
+    color: #f5e6c8;
+}
+body.feudal button:hover {
+    background: #8b3828;
+    box-shadow: 0 0 20px rgba(212, 158, 8, 0.849);
+}
 
 
 

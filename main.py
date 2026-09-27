@@ -41,8 +41,8 @@ class Game:
       self.game_mode = GameMode.MENU
       self.hud = HUD(SCREEN_WIDTH)
       self.menu = Menu(SCREEN_WIDTH,SCREEN_HEIGHT)
-      self.pause_screen = PauseScreen(SCREEN_WIDTH,SCREEN_HEIGHT)
-      self.completion_screen = CompletionScreen(SCREEN_WIDTH,SCREEN_HEIGHT)
+      self.pause_screen = PauseScreen()
+      self.completion_screen = CompletionScreen()
       #sprites
       self.all_sprites=pygame.sprite.Group()
       self.all_sprites.add(self.player)
@@ -159,7 +159,7 @@ class Game:
     self.screen.blit(self.player.image,player_screen_rect)
     self.hud.draw(self.screen,self.current_era,self.gadgets,self.challenges)
     if self.game_mode == GameMode.PAUSED:
-        self.pause_screen.draw(self.screen)
+        self.pause_screen.draw
         return
 
     pygame.display.flip()

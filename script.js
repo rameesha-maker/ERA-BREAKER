@@ -12,6 +12,22 @@ let currentEra = "FEIDAL JAPAN";
 let isMoving = false;
 let currentDirection = "STOP";
 
+/* python pygame connection */
+const socket = new WebSocket("ws://localhost:8765");
+
+socket.onopen = () => {
+    console.log("connected to ERA BREAKER");
+
+    document.getElementById("connectionStatus").textcontent = "CONNECTED";
+};
+socket.onmessage = (event) => {
+    const state = JSON.parse(event.data);
+    updateDashboard(state);
+};
+socket.onclose = () => {
+    console.log("Disconnected from game");
+    document.getElementById("connectionStatus").textContent = "DISCONNECTED";
+};
 /*-- get html elements --*/
 const eraDisplay = document.getElementById("era");
 const eraDescription = document.getElementById("eraDescription");
@@ -115,6 +131,18 @@ else {
         eraDisplay.style.transform = 
         "scale(1)";
     }, 250);
+    document.getElementById("era").textcontent = era;
+    const body = document.body;
+    body.className = "";
+    if (era === "FEUDAL JAPAN") {
+        body.classList.add("feudal");
+    }
+    else if (era === "MODERN TOKYO"){
+        body.classList.add("modern");
+    } 
+    else if (era === "FUTURE CITY") {
+        body.classList.add("future");
+    }
  }
 
  /*--move left--*/
@@ -262,6 +290,31 @@ document
     rewindTime();
 });
 
+function updateDashboard(state) {
+    if (state.era !== undefined) {
+        changeEra(state.era);
+    }
+    if (state.playerX !== undefined) {
+        playerX = state.playerX;
+    }
+    if(state.playerY !== undefined) {
+        playerY = state.playerY;
+    }
+    if (state.status !== undefined) {
+        playerStatus = state.status;
+    }
+    if (state.charges !== undefined) {
+        charges = state.charges;
+    }
+    if (state.progress !== undefined) {
+        progress = state.progress;
+    }
+    updatePlayerPosition();
+    updatePlayerStatus(playerStatus);
+    updateFuel();
+    updateCharges();
+    updateProgress();
+}
 /*keyboard controls*/
 document.addEventListener("keydown", function(event)
 {
@@ -311,14 +364,7 @@ setInterval(function()
         updatePlayerPosition();
     }
 }, 500);
-/*connection test replace this later*/
-setTimeout (function()
-{
-connectionStatus.textContent = "CONNECTED";
 
-connectionStatus.style.textShadow = 
-"0 0 8px #42ff9e";
-}, 1500);
 /*initial game state */
 updateFuel();
 updateCharges();
@@ -328,4 +374,22 @@ updatePlayerStatus("ONLINE");
 changeEra("FEUDAL JAPAN");
 
 /*test commands*/
+socket.send(JSON.stringify({
+    command: "MOVE_RIGHT"
+}));
+socket.send(MediaKeySession.stringify({
+    command: "MOVE_LEFT"
+}));
+socket.send(JSON.stringify({
+    command: "JUMP"
+}));
+socket.send(JSON.stringify({
+    command: "STOP"
+}));
+socket.send(JSON.stringify({
+    command: "ACTIVATE_COPTER"
+}));
+socket.send(JSON.stringify({
+    command: "REWIND"
+}));
 /* i hATE BUGS */
