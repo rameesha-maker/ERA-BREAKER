@@ -1,73 +1,137 @@
 import asyncio
 import json
 import threading
-from websockets.server import serve
-from settings import *
+import sys
 from queue import Queue
+
+from settings import WEBSOCKET_HOST, WEBSOCKET_PORT
+
+
+WEB_MODE = sys.platform == "emscripten"
+
 
 class CommunicationServer:
     def __init__(self):
         self.clients = set()
         self.command_queue = Queue()
+
         self.loop = None
         self.thread = None
-        self.running = False
         self.server = None
+        self.stop_event = None
+        self.running = False
+
     def start(self):
-        self.thread = threading.Thread(target=self._run_server,
-                                       daemon = True)
+        # Never start a local websocket server in Pygbag/browser mode.
+        if WEB_MODE:
+            return
+
+        self.thread = threading.Thread(
+            target=self._run_server,
+            daemon=True
+        )
         self.thread.start()
 
-
     def _run_server(self):
-           self.loop = asyncio.new_event_loop()
-           asyncio.set_event_loop(self.loop)
-           self.running = True
-           self.loop.run_until_complete(self._server())
+        # Import websockets only on desktop.
+        import websockets
 
+        self.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(self.loop)
+        self.running = True
+
+        try:
+            self.loop.run_until_complete(self._server())
+        except Exception as e:
+            print("[WEB] Server error:", e)
+        finally:
+            self.running = False
+
+            pending = asyncio.all_tasks(self.loop)
+
+            for task in pending:
+                task.cancel()
+
+            try:
+                self.loop.run_until_complete(
+                    asyncio.gather(
+                        *pending,
+                        return_exceptions=True
+                    )
+                )
+            except Exception:
+                pass
+
+            self.loop.close()
+            self.loop = None
 
     async def _server(self):
-        self.server = await serve(self._handle_client,WEBSOCKET_HOST,WEBSOCKET_PORT)
-        print(f"[WEB] WebSocket server is running at "
-            f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}")
-        await self.server.wait_closed()
+        import websockets
 
-    def stop(self):
-        self.running = False
-        if self.loop and self.server:
-            self.loop.call_soon_threadsafe(self.server.close)
-        if self.thread and self.thread.is_alive():
-            self.thread.join(timeout = 1)
+        self.stop_event = asyncio.Event()
 
-    async def _handle_client(self,websocket,path=None):
+        self.server = await websockets.serve(
+            self._handle_client,
+            WEBSOCKET_HOST,
+            WEBSOCKET_PORT
+        )
+
+        print(
+            f"[WEB] WebSocket server running at "
+            f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}"
+        )
+
+        try:
+            await self.stop_event.wait()
+        finally:
+            self.server.close()
+            await self.server.wait_closed()
+            self.server = None
+
+    async def _handle_client(self, websocket):
+        print("[WEB] Dashboard connected!")
         self.clients.add(websocket)
-        print("[WEB] Mission Control Connected")
-        try: 
+
+        try:
             async for message in websocket:
+                print("[WEB] Received:", message)
+
                 try:
-                    data= json.loads(message)
-                    await self.command_queue.put(data)
+                    command = json.loads(message)
+                    print("[WEB] Command:", command)
+                    self.command_queue.put(command)
                 except json.JSONDecodeError:
-                    print("[WEB] INVALID json RECIEVED.")    
-        except websockets.exceptions.ConnectionClosed:
-            pass
+                    print("[WEB] Invalid JSON received")
+
+        except Exception as e:
+            print("[WEB] Client error:", e)
+
         finally:
             self.clients.discard(websocket)
-            print("[WEB] Missin Contro Disconnected")
+            print("[WEB] Dashboard disconnected")
 
-    def broadcast_state(self,state):
-        if not self.loop:
+    def get_commands(self):
+        commands = []
+
+        while not self.command_queue.empty():
+            commands.append(self.command_queue.get())
+
+        return commands
+
+    def broadcast_state(self, state):
+        if not self.clients or not self.loop:
             return
-        if not self.clients:
-            return
+
         message = json.dumps(state)
-        asyncio.run_coroutine_threadsafe(self._broadcast(message),self.loop)
-        self.send_state(state)
 
-    async def _broadcast(self,message):
-        if not self.clients:
-            return
+        asyncio.run_coroutine_threadsafe(
+            self._broadcast(message),
+            self.loop
+        )
+
+    async def _broadcast(self, message):
         disconnected = set()
+
         for client in self.clients:
             try:
                 await client.send(message)
@@ -77,17 +141,20 @@ class CommunicationServer:
         for client in disconnected:
             self.clients.discard(client)
 
-    #recieve commands
-    def get_commands(self):
-        commands=[]
-        if not self.loop:
-            return commands
-        while not self.command_queue.empty():
-            try:
-                command=(self.command_queue.get_nowait())
-                commands.append(command)
-            except asyncio.QueueEmpty:
-                break
+    def stop(self):
+        if not self.loop or not self.running:
+            return
 
-        return commands
-        
+        def request_shutdown():
+            if self.stop_event:
+                self.stop_event.set()
+
+        try:
+            self.loop.call_soon_threadsafe(request_shutdown)
+        except RuntimeError:
+            return
+
+        if self.thread and self.thread.is_alive():
+            self.thread.join(timeout=2)
+
+        self.thread = None

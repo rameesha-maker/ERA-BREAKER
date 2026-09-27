@@ -15,6 +15,11 @@ from completion_screen import CompletionScreen
 from game_modes import GameMode
 from how_to_play import HowToPlay
 from settings_screen import SettingsScreen
+import asyncio
+WEB_MODE = sys.platform == "emscripten"
+print("era breaker starting")
+print ("web mode ",WEB_MODE)
+print("pygame initializing...")
 class Game:
  def __init__(self):
 
@@ -24,6 +29,7 @@ class Game:
       self.clock=pygame.time.Clock()
       self.running =True
       self.current_era = 1
+      self.menu = Menu()
       self.level=Level(self.current_era)
       self.player=Player(100,100)
       self.camera= Camera()
@@ -36,12 +42,16 @@ class Game:
       self.game_state = GameState()
 
       #websocket
-      self.communication = (CommunicationServer())
-      self.communication.start()
+      if not WEB_MODE:
+      
+       self.communication = (CommunicationServer())
+       self.communication.start()
+      else:
+          self.communication = None
 
       self.game_mode = GameMode.MENU
       self.hud = HUD(SCREEN_WIDTH)
-      self.menu = Menu()
+      
       self.how_to_play = HowToPlay()
       self.pause_screen = PauseScreen()
       self.completion_screen = CompletionScreen()
@@ -49,7 +59,7 @@ class Game:
       #sprites
       self.all_sprites=pygame.sprite.Group()
       self.all_sprites.add(self.player)
-
+      print("pygame initialized")
  def handle_events(self):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -60,14 +70,15 @@ class Game:
                 if self.game_mode == GameMode.MENU:
                     clicked = self.menu.handle_click(event.pos)
                     if clicked =="START GAME":
-                        continue
+                        self.game_mode = GameMode.PLAYING
                     elif clicked == "HOW TO PLAY":
                         self.game_mode = GameMode.HOW_TO_PLAY
                         self.how_to_play.draw(self.screen)
                     elif clicked == "SETTINGS":
                         self.game_mode = GameMode.SETTINGS
-                        continue
-                    
+                        self.settings_screen.draw(self.screen)
+                        if clicked =="BACK":
+                            self.menu.draw(self.screen)
         
         if event.type != pygame.KEYDOWN:
             continue
@@ -99,23 +110,25 @@ class Game:
 
 
  def process_web_commands(self):
-    commands = (self.communication.get_commands())
-    for command in commands:
-        if command == "left":
+    if self.communication is not None:
+       commands = (self.communication.get_commands())
+       if commands:
+        for command in commands:
+         if command == "left":
             self.player.velocity.x = (-self.player.speed)
-        elif command == "right":
+         elif command == "right":
             self.player.velocity.x = self.player.speed
-        elif command == "stop":
+         elif command == "stop":
             self.player.velocity.x = 0
-        elif command == "jump":
+         elif command == "jump":
             self.player.jump()
-        elif command == "copter":
+         elif command == "copter":
             self.gadgets.activate_copter()
-        elif command == "copter_stop":
+         elif command == "copter_stop":
             self.gadgets.deactivate_copter()
-        elif command == "rewind":
+         elif command == "rewind":
             self.gadgets.start_rewind()
-        elif command == "rewind_stop":
+         elif command == "rewind_stop":
             self.gadgets.stop_rewind()    
  def update(self):
  
@@ -143,9 +156,11 @@ class Game:
  
  def send_network_state(self,dt):
  #update shared status
+    
     self.game_state.update_from_game(self.current_era,self.player,self.gadgets,self.challenges)
      #send JSON TO BROWSER
-    self.communication.broadcast_state(self.game_state.to_dict())      
+    if self.communication is not None:
+     self.communication.broadcast_state(self.game_state.to_dict())      
  def next_era(self):
     #already at final era
     if self.current_era >= 3:
@@ -198,21 +213,38 @@ class Game:
         self.completion_screen.draw(self.screen)
 
     pygame.display.flip()
-
- def run(self):
+    print("display created")
+ async def run(self):
     while self.running:
-        dt= self.clock.tick(FPS)/1000.0
         self.handle_events()
-        self.process_web_commands()
+
+        if not WEB_MODE:
+            self.process_web_commands()
+
         self.update()
-        self.send_network_state(dt)
+
+        if not WEB_MODE:
+            self.send_network_state(0)
+
         self.draw()
-        if self.communication:
-            self.communication.stop()
+
+        await asyncio.sleep(0)
+
+    if self.communication is not None:
+        self.communication.stop()
+
     pygame.quit()
-    sys.exit()
+
+
+async def main():
+    game = Game()
+    print("game created")
+
+    await game.run()
+
 
 if __name__ == "__main__":
-   game = Game()
-   game.run()       
-
+    asyncio.run(main())
+ 
+ 
+ 

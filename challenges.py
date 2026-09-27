@@ -40,7 +40,7 @@ class ChallengeManager:
             self.fail_trial()
             return
         if (self.current_checkpoint>= self.total_checkpoints):
-            self.comnplete_trial()
+            self.complete_trial()
             return
         checkpoint = (self.level.trial_checkpoints[self.current_checkpoint])
         if pygame.sprite.collide_rect(self.player,checkpoint):
