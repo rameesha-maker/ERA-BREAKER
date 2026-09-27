@@ -33,12 +33,12 @@ ERA BREAKER style.css
         height: 100%;
 
         background:
-        linear-gradient(rgba(77, 144, 245, 0.85),
-        rgba(3, 98, 175, 0.95)),
+        linear-gradient(#091269,
+        rgba(3, 44, 78, 0.95)),
         repeating-linear-gradient(90deg,
         transparent,
         transparent 80px,
-        rgba(0, 179, 255, 0.781)
+        rgba(21, 105, 141, 0.781)
         81px);
         z-index: -1 ;
     }
@@ -86,38 +86,38 @@ ERA BREAKER style.css
         letter-spacing: 8px;
         color: #e90e0e;
         text-shadow:
-        0 0 10px #fc2828,
-        0 0 25px #570e5a;
+        0 0 10px #2f92f0,
+        0 0 25px #4c94e6;
     }
     .header p {
         margin-top: 10px;
         letter-spacing: 5px;
-        color: #fc0425;
+        color: #8f0517;
     }
 
-    /* ----panels---- */
+    /* ----panels----  #091269*/
     .panel {
-        background: rgba(255, 245, 110, 0.85);
-        border: 40px solid #042e1c;
+        background: rgb(250, 241, 123);
+        border: 35px solid rgba(77, 144, 245, 0.85);
         border-radius: 10px;
         padding: 10px;
-        box-shadow: inset 0 0 20px rgba(100, 253, 86, 0.863),
-        00 10px rgba(99, 245, 94, 0.959);
+        box-shadow: inset 0 0 20px rgba(244, 245, 244, 0.863),
+        00 10px rgba(247, 248, 247, 0.959);
         transition: 0.3s;
     }
 
     /* pANEL HOVER */
     .panel.hover {
-        border-color: rgb(59, 6, 6);
-        box-shadow: 0 0 15px rgba(107, 187, 201, 0.952);
+        border-color: rgb(238, 19, 19);
+        box-shadow: 0 0 15px rgba(20, 136, 156, 0.952);
         transform: translateY(-2px);
     }
     .panel h2 {
         font-size: 15px;
         letter-spacing: 3px;
-        color:#3d033a;
+        color:#da0a26;
         margin-bottom: 20px;
-        border-bottom: 1px solid #775cc2;
+        border-bottom: 1px solid #f5f4f7;
         padding-bottom: 10px;
     }
 
@@ -131,7 +131,7 @@ ERA BREAKER style.css
 } 
 #eraDescription {
     margin-top: 12px;
-    color: #3f050f;
+    color: #7a0716;
     font-size: 13px;
 }
 /*---player status---*/
@@ -143,9 +143,9 @@ ERA BREAKER style.css
     color: #027cff;
 }
 #playerStatus {
-    color: #0d6136;
+    color: #4078f3;
     font-weight: bold;
-    text-shadow: 0 0 8px #0df07b;
+    text-shadow: 0 0 8px #011675;
 }
 
 /*----game progress----*/
@@ -155,7 +155,7 @@ ERA BREAKER style.css
 .progress-bar {
     width:100%;
     height: 25px;
-    background: #c4b6eb;
+    background: #faf9fc;
 
 
 
@@ -166,13 +166,13 @@ overflow: hidden;
 #progressFill
 { width: 0%;
     height: 100%;
-    background: #4301ad;
+    background: #5398ff;
     transition: width 0.5s;
 }
 #progressText {
     text-align: right;
     margin-top: 10px;
-    color: #850832;
+    color: #c71313;
     font-weight:bold;
 }
 /*--gadget panel--*/
@@ -182,12 +182,12 @@ overflow: hidden;
 .gadget {
     margin-bottom: 30px;
     padding: 20px;
-    background: rgba(18, 1, 94, 0.575);
-    border: 10px solid #163d4d;
+    background: rgba(240, 29, 29, 0.527);
+    border: 10px solid #21b2eb;
     border-radius: 8px;
 }
 .gadget h3 {
-    color: #56fa51;
+    color: #4340f5;
     font-size: 15px;
     letter-spacing:  2px;
     margin-bottom: 15px;
@@ -197,8 +197,8 @@ overflow: hidden;
 .fuel-bar {
     width: 100%;
     height: 22px;
-    background: #101722;
-    border: 3px solid #206283;
+    background: #3e87fda9;
+    border: 3px solid #910505;
     overflow: hidden;
     margin-bottom: 10px;
 
@@ -206,30 +206,30 @@ overflow: hidden;
 #fuelFill {
     width: 100%;
     height: 100%;
-    background: #d75df0;
-    box-shadow: 0 0 12px #d773f5;
+    background: #145af1;
+    box-shadow: 0 0 12px #e61717;
     transition: width 0.4s;
 }
 .gadget p {
-    color: #f82bf8;
+    color: #389dfc;
     margin: 10px 0;
 }
  #fuelText {
-    color: #d83bff;
+    color: #29a6fa;
     font-weight: bold;
  }
 
  #charges {
-color: #4cfd78;
+color: #12016e;
 font-size: 22px;
 font-weight: bold;
  }
 
  /*---buttons---*/
  button {
-    border: 1px solid #3ce967;
-    background: #0a4e26;
-    color: #ccf02a;
+    border: 1px solid #3f42fd;
+    background: #0793f1;
+    color: #2a48f0;
     padding: 12px 20px;
     font-size: 12px;
 font-weight: bold;
@@ -240,10 +240,10 @@ font-weight: bold;
  }
 
  button:hover {
-    background: #6cd5e7;
-    color: #02060c;
+    background: #04d7fc;
+    color: #0968f7;
     padding: 12px 20px;
-    box-shadow: 0 0 15px #f75cc3;
+    box-shadow: 0 0 15px #392bfa;
  }
 
  button:active {
@@ -278,8 +278,8 @@ font-weight: bold;
  }
 
  #stopBtn {
-    color: #ff5864;
-    border-color: #ff5860;
+    color: #ec0d1c;
+    border-color: #ff4b54;
  }
 
  #stopBtn:hover {
@@ -293,14 +293,14 @@ font-weight: bold;
  }
 
  #rewindBtn {
-    border-color: #ff6cc7;
-    color: #6cacff;
+    border-color: #072e81;
+    color: #f2f4f7;
  }
 
  #rewindbtn:hover {
-    background: #510499;
-    color: rgb(56, 7, 85);
-    box-shadow: 0 0 15px #39046b;
+    background: #5d82fd;
+    color: rgb(243, 240, 245);
+    box-shadow: 0 0 15px #17036e;
  }
 
  /*--connection--*/
@@ -310,9 +310,9 @@ font-weight: bold;
  }
 
  #connectionStatus {
-    color: #3a0206;
+    color: hsl(229, 90%, 61%);
     font-weight: bold;
-    text-shadow: 0 0 8px #4b0308;
+    text-shadow: 0 0 8px #fafcfb;
  }
 
  /*--footer--*/
@@ -362,7 +362,7 @@ repeating-linear-gradient(
 }
 /*feudal era theme*/
 body.feudal -panel {
-    background: rgba(55, 30, 20, 0.92);
+    background: rgba(20, 35, 55, 0.92);
     border-color: #9b5a3c;
     box-shadow: 0 0 15px rgba(155, 90, 60, 0.3);
 }
@@ -424,8 +424,24 @@ body.modern button:hover {
 }
 /*future theme*/
 body.future {
-    background: #6e1480;
+    background: #0e0766;
 }
-
+body.future -panel {
+    background: #2c51f5;
+    border-color: honeydew;
+    box-shadow: 0 0 15px rgba(241, 57, 72, 0.425);
+}
+body.future .panel h2 {
+    color:rgba(231, 212, 40, 0.95);
+}
+body.future button {
+    background:#7a057e;
+    border-color: #fdfdfd;
+    color: #1687f8;
+}
+body.future button:hover {
+    background:rgba(0, 170, 255, 0.4);
+    box-shadow: 0 0 20px rgba(234, 247, 53, 0.9);
+}
 
  
