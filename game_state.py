@@ -16,7 +16,8 @@ class GameState:
         self.time_machine_unlocked = False
         self.rewinding = False
         self.challenge = {}
-        self.timestamp = 0
+        self.timestamp = time.time()
+        self.challenge_count = 0
 
     def update_from_game(self,current_era,player,gadgets,challenges=None):
         self.era = current_era
@@ -44,11 +45,11 @@ class GameState:
 
             "gadgets": {
                 "copter_unlocked":(self.copter_unlocked),
-                "time_machine_unlocked":self.time_machine_unlocked,
+                "time_machine_unlocked":(self.time_machine_unlocked),
                 "copter_active": (self.copter_active),
                 "copter_fuel":(self.copter_fuel),
                 "rewinding":(self.rewinding),
                 } ,
-                "challenge": self.challenge,
-                "timestamp":self.timestamp
+                "challenges": {"completed" :(self.challenge_count)},
+                "timestamp":(self.timestamp)
         }
