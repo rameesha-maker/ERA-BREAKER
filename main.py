@@ -60,14 +60,15 @@ class Game:
                 if self.game_mode == GameMode.MENU:
                     clicked = self.menu.handle_click(event.pos)
                     if clicked =="START GAME":
-                        continue
+                        self.game_mode = GameMode.PLAYING
                     elif clicked == "HOW TO PLAY":
                         self.game_mode = GameMode.HOW_TO_PLAY
                         self.how_to_play.draw(self.screen)
                     elif clicked == "SETTINGS":
                         self.game_mode = GameMode.SETTINGS
-                        continue
-                    
+                        self.settings_screen.draw(self.screen)
+                        if clicked =="BACK":
+                            self.menu.draw(self.screen)
         
         if event.type != pygame.KEYDOWN:
             continue
@@ -207,8 +208,8 @@ class Game:
         self.update()
         self.send_network_state(dt)
         self.draw()
-        if self.communication:
-            self.communication.stop()
+        
+    self.communication.stop()
     pygame.quit()
     sys.exit()
 
