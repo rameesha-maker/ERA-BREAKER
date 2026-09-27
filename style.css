@@ -16,7 +16,7 @@ ERA BREAKER style.css
     min-height: 100vh ;
     font-family: Arial, sans-serif;
 
-    background: #070b14;
+    background: #209ee7;
     color: white;
     overflow-x: hidden;
     }
@@ -33,12 +33,12 @@ ERA BREAKER style.css
         height: 100%;
 
         background:
-        linear-gradient(rgba(7,11,20,0.85),
-        rgba(7,11,20,0.95)),
+        linear-gradient(rgba(77, 144, 245, 0.85),
+        rgba(3, 98, 175, 0.95)),
         repeating-linear-gradient(90deg,
         transparent,
         transparent 80px,
-        rgba(0,180,255,0.03)
+        rgba(0, 179, 255, 0.781)
         81px);
         z-index: -1 ;
     }
@@ -65,9 +65,9 @@ ERA BREAKER style.css
         grid-column: 1/4;
         text-align: center;
         padding: 30px;
-        border: 1px solid #00d9ff;
-        background: rgba(0,20,40,0.8);
-        box-shadow: 0 0 15 px rgba(0,217, 255, 0.3);
+        border: 10px solid #ce0a0a;
+        background: rgba(253, 253, 253, 0.8);
+        box-shadow: 0 0 15 px rgba(82, 2, 22, 0.3);
         position:relative;
     }
     /* little line underneath title */
@@ -77,47 +77,47 @@ ERA BREAKER style.css
         bottom: -5px;
         left: 20%;
         width: 2px;
-        background : #00d9ff;
+        background : #f11010;
         box-shadow:
-        0 0 10px #00d9ff;
+        0 0 10px #f11010;
     }
     .header h1 {
         font-size: 45px;
         letter-spacing: 8px;
-        color: #00d9ff;
+        color: #e90e0e;
         text-shadow:
-        0 0 10px #00d9ff,
-        0 0 25px #00d9ff;
+        0 0 10px #fc2828,
+        0 0 25px #570e5a;
     }
     .header p {
         margin-top: 10px;
         letter-spacing: 5px;
-        color: #7defff;
+        color: #fc0425;
     }
 
     /* ----panels---- */
     .panel {
-        background: rgba(10,20,35,0.85);
-        border: 1px solid #176b88;
-        border-radius: 2px;
+        background: rgba(255, 245, 110, 0.85);
+        border: 40px solid #042e1c;
+        border-radius: 10px;
         padding: 10px;
-        box-shadow: inset 0 0 20px rgba(0,150,255,0.04),
-        00 10px rgba(0,200,255,0.08);
+        box-shadow: inset 0 0 20px rgba(100, 253, 86, 0.863),
+        00 10px rgba(99, 245, 94, 0.959);
         transition: 0.3s;
     }
 
     /* pANEL HOVER */
     .panel.hover {
-        border-color: cornflowerblue;
-        box-shadow: 0 0 15px rgba(0, 217, 255, 0.25);
+        border-color: rgb(59, 6, 6);
+        box-shadow: 0 0 15px rgba(107, 187, 201, 0.952);
         transform: translateY(-2px);
     }
     .panel h2 {
         font-size: 15px;
         letter-spacing: 3px;
-        color:#65eaff;
+        color:#3d033a;
         margin-bottom: 20px;
-        border-bottom: 1px solid #1a5268;
+        border-bottom: 1px solid #775cc2;
         padding-bottom: 10px;
     }
 
@@ -131,7 +131,7 @@ ERA BREAKER style.css
 } 
 #eraDescription {
     margin-top: 12px;
-    color: #8193a8;
+    color: #3f050f;
     font-size: 13px;
 }
 /*---player status---*/
@@ -140,12 +140,12 @@ ERA BREAKER style.css
 }
 .player-panel p {
     margin: 18px 0;
-    color: #9fb3c8;
+    color: #027cff;
 }
 #playerStatus {
-    color: #42ff9e;
+    color: #0d6136;
     font-weight: bold;
-    text-shadow: 0 0 8px #42ff9e;
+    text-shadow: 0 0 8px #0df07b;
 }
 
 /*----game progress----*/
@@ -155,23 +155,277 @@ ERA BREAKER style.css
 .progress-bar {
     width:100%;
     height: 25px;
-    background: #050910;
+    background: #c4b6eb;
 
 
 
-background: 1px solid #245269;
+background: 10px solid #245269;
 margin-top: 30px;
 overflow: hidden;
 }
 #progressFill
 { width: 0%;
     height: 100%;
-    background: #00d9ff;
+    background: #4301ad;
     transition: width 0.5s;
 }
 #progressText {
     text-align: right;
     margin-top: 10px;
-    color: #00d9ff;
+    color: #850832;
     font-weight:bold;
 }
+/*--gadget panel--*/
+.gadget-panel {
+    grid-column: 1/3;
+}
+.gadget {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(18, 1, 94, 0.575);
+    border: 10px solid #163d4d;
+    border-radius: 8px;
+}
+.gadget h3 {
+    color: #56fa51;
+    font-size: 15px;
+    letter-spacing:  2px;
+    margin-bottom: 15px;
+}
+
+/*--fuel bar--*/
+.fuel-bar {
+    width: 100%;
+    height: 22px;
+    background: #101722;
+    border: 3px solid #206283;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+}
+#fuelFill {
+    width: 100%;
+    height: 100%;
+    background: #d75df0;
+    box-shadow: 0 0 12px #d773f5;
+    transition: width 0.4s;
+}
+.gadget p {
+    color: #f82bf8;
+    margin: 10px 0;
+}
+ #fuelText {
+    color: #d83bff;
+    font-weight: bold;
+ }
+
+ #charges {
+color: #4cfd78;
+font-size: 22px;
+font-weight: bold;
+ }
+
+ /*---buttons---*/
+ button {
+    border: 1px solid #3ce967;
+    background: #0a4e26;
+    color: #ccf02a;
+    padding: 12px 20px;
+    font-size: 12px;
+font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 18px;
+    transition: 0.42s;
+ }
+
+ button:hover {
+    background: #6cd5e7;
+    color: #02060c;
+    padding: 12px 20px;
+    box-shadow: 0 0 15px #f75cc3;
+ }
+
+ button:active {
+    transform: scale(0.95);
+ }
+
+ /*--movement controls--*/
+ .control-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+
+ .movement-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+ }
+
+ .middle-controls {
+    display: flex;
+    gap: 10px;
+ }
+
+ .movement-controls button {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    font-size: 22px;
+ }
+
+ #stopBtn {
+    color: #ff5864;
+    border-color: #ff5860;
+ }
+
+ #stopBtn:hover {
+    background: #ff5864;
+    color: white;
+    box-shadow: 0 0 15px #ff5860;
+ }
+
+ #copterBtn {
+    margin-top: 10px;
+ }
+
+ #rewindBtn {
+    border-color: #ff6cc7;
+    color: #6cacff;
+ }
+
+ #rewindbtn:hover {
+    background: #510499;
+    color: rgb(56, 7, 85);
+    box-shadow: 0 0 15px #39046b;
+ }
+
+ /*--connection--*/
+ .connection-panel {
+    grid-column: 1/4;
+    text-align: center;
+ }
+
+ #connectionStatus {
+    color: #3a0206;
+    font-weight: bold;
+    text-shadow: 0 0 8px #4b0308;
+ }
+
+ /*--footer--*/
+ .footer {
+    grid-column: 1/4;
+    text-align: center;
+    padding: 15px;
+    color: #6ab5f7;
+    font-size: 11px;
+    letter-spacing: 3px;
+ }
+
+/*--responsive decision--*/
+@media (max-width: 900px) {
+
+.dashboard {
+    grid-template-columns: 1fr;
+}
+.header,
+.gadget-panel,
+.footer{
+    grid-column: 1;
+}
+.header h1 {
+    font-size: 30px;
+    letter-spacing: 4px;
+}
+
+}
+
+/*--scan line--*/
+body::after {
+    content: "";
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+background: 
+repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3 px,
+    rgba (255,255,255, 0.015) 4px
+);
+}
+/*feudal era theme*/
+body.feudal -panel {
+    background: rgba(55, 30, 20, 0.92);
+    border-color: #9b5a3c;
+    box-shadow: 0 0 15px rgba(155, 90, 60, 0.3);
+}
+body.feudal .panel h2 {
+    color: #e8b04b;
+}
+body.feudal button {
+    background:  #6e2c20;
+    border-color: #d4a24c;
+    color: #f5e6c8;
+}
+body.feudal button:hover {
+    background: #8b3828;
+    box-shadow: 0 0 20px rgba(212, 158, 8, 0.849);
+}
+ 
+/*modern era theme*/
+body.modern {
+    background: 
+    linear-gradient(rgba(10, 25, 45, 0.9), rgba(5, 15, 30, 0.95)),
+    repeating-linear-gradient(
+        90deg,
+        #102438 0px,
+        #102438 2px,
+        #0b1c2c 2px,
+        #0b1c2c 80px
+    );
+    color: #eaf6ff;
+}
+
+body.modern .header {
+    border-color: #00aaff;
+    box-shadow: 0 0 25px rgba(0, 170, 255, 0.4);
+}
+
+body.modern.header h1 {
+    color: #4dc9ff;
+    text-shadow: 0 0 15px rgba(77, 201, 255, 0.7);
+}
+
+body.modern .panel {
+    background: rgba(12, 32, 52, 0.9);
+    border-color: #248dcc;
+    box-shadow: 0 0 15px rgba(36, 141, 204, 0.25);
+}
+body.modern .panel h2 {
+    color: #4dc9ff;
+}
+
+body.modern button{
+    background: #123d5c;
+    border-color: #4dc9ff;
+    color: #eaf6ff;
+}
+
+body.modern button:hover {
+    background: #18577f;
+    box-shadow: 0 o 20px rgba(77,201, 255, 0.5);
+}
+/*future theme*/
+body.future {
+    background: #6e1480;
+}
+
+
+ 
