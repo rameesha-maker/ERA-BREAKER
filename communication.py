@@ -1,7 +1,7 @@
 import asyncio
 import json
 import threading
-import websockets
+from websockets.server import serve
 from settings import *
 from queue import Queue
 
@@ -20,13 +20,14 @@ class CommunicationServer:
 
 
     def _run_server(self):
-        self.loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(self.loop)
-        self.running = True
-        self.loop.run_until_complete(self._server())
+           self.loop = asyncio.new_event_loop()
+           asyncio.set_event_loop(self.loop)
+           self.running = True
+           self.loop.run_until_complete(self._server())
+
 
     async def _server(self):
-        self.server = await websockets.serve(self._handle_client,WEBSOCKET_HOST,WEBSOCKET_PORT)
+        self.server = await serve(self._handle_client,WEBSOCKET_HOST,WEBSOCKET_PORT)
         print(f"[WEB] WebSocket server is running at "
             f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}")
         await self.server.wait_closed()

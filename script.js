@@ -1,4 +1,4 @@
- ERABREAKER - script.js
+
 /*==era breaker mission control - SCRIPT.JS==*/
 /*==game data ==*/
 let fuel = 100;
@@ -13,12 +13,12 @@ let isMoving = false;
 let currentDirection = "STOP";
 
 /* python pygame connection */
-const socket = new WebSocket("ws://localhost:8765");
+const socket = new WebSocket("ws://127.0.0.1:8765");
 
 socket.onopen = () => {
     console.log("connected to ERA BREAKER");
 
-    document.getElementById("connectionStatus").textcontent = "CONNECTED";
+    document.getElementById("connectionStatus").textContent = "CONNECTED";
 };
 socket.onmessage = (event) => {
     const state = JSON.parse(event.data);
@@ -27,18 +27,28 @@ socket.onmessage = (event) => {
 socket.onclose = () => {
     console.log("Disconnected from game");
     document.getElementById("connectionStatus").textContent = "DISCONNECTED";
-};
+}; 
+
+function sendCommand(command) {
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({
+            command: command
+        }));
+        console.log("Sent to Python:", command);
+    }
+}
+
 /*-- get html elements --*/
 const eraDisplay = document.getElementById("era");
 const eraDescription = document.getElementById("eraDescription");
 const playerStatusDisplay = document.getElementById("playerStatus");
 
 const playerPositionDisplay = document.getElementById("playerPosition");
-const progressFIll = document.getElementById("progressFIll");
+const progressFIll = document.getElementById("progressFill");
 
 const progressText = document.getElementById("progressText");
-const fuelFill = document.getElementById("fuelFill");
-const fuelText = document.getElementsById("fuelText");
+const fuelFill = document.getElementById("fuel-bar");
+const fuelText = document.getElementById("fuelText");
 
 const chargesDisplay = document.getElementById("charges");
 
@@ -72,7 +82,7 @@ else {
 
  /*--update game progress--*/
  function updateProgress() {
-    progressFIll.style.width =
+    progressFill.style.width =
     progress + "%";
  } 
 
@@ -110,8 +120,7 @@ else {
         eraDescription.textContent = 
         "Historical era detected";
 
-        document.body
-        .className = "feudal";
+        document.body.className = "feudal";
     }
     else if (era === "MODERN TOKYO") {
         eraDescription.textContent = "Modern era detected";
@@ -131,18 +140,6 @@ else {
         eraDisplay.style.transform = 
         "scale(1)";
     }, 250);
-    document.getElementById("era").textcontent = era;
-    const body = document.body;
-    body.className = "";
-    if (era === "FEUDAL JAPAN") {
-        body.classList.add("feudal");
-    }
-    else if (era === "MODERN TOKYO"){
-        body.classList.add("modern");
-    } 
-    else if (era === "FUTURE CITY") {
-        body.classList.add("future");
-    }
  }
 
  /*--move left--*/
@@ -154,19 +151,19 @@ else {
     updatePlayerStatus("MOVING");
     console.log("MOVE LEFT");
 
-    /*THIS WILL LATER SEND MOVE_LEFT to python*/
+    sendCommand("MOVE_LEFT");
+
  }
 
  /*--move right--*/ 
  function moveRight() {
     playerX += 10;
     currentDirection = "RIGHT";
-    ISmOVING = true;
+    isMoving = true;
     updatePlayerPosition();
     updatePlayerStatus("MOVING");
     console.log("MOVE RIGHT");
-    /* LATER THIS WILL SEND :
-    MOVE_RIGHT TO PYTHON*/
+    sendCommand("MOVE_RIGHT");
  }
 
  /*--JUMP--*/
@@ -174,7 +171,7 @@ else {
     currentDirection = "JUMP";
     updatePlayerStatus("MOVING");
     console.log("jump");
-    /*later send JUMP to python*/
+    sendCommand("JUMP");
     /* visual feedback*/
     document.querySelector("#jumpBtn").style.transform =
     "translateY(-8px)";
@@ -190,7 +187,7 @@ else {
     currentDirection = "STOP";
     updatePlayerStatus("STOPPED");
     console.log("STOP");
-    /*later send STOP to python*/
+    sendCommand("STOP");
  }
 
  /*-- bamboo copter --*/
@@ -208,7 +205,7 @@ else {
     }
     updateFuel();
     console.log("BAMBOO COPTER ACTIVATED");
-    /* later: send ACTIVATE_COPTER to python*/
+    sendCommand("ACTIVATE_COPTER");
     updatePlayerStatus("MOVING");
  }
  /*--rewind time--*/
@@ -223,7 +220,7 @@ else {
     charges--;
     updateCharges();
     console.log("time machine activated");
-    /*later send REWIND to python*/
+    sendCommand("REWIND");
 
     /*rewind progress*/
     progress -= 10;
@@ -374,22 +371,5 @@ updatePlayerStatus("ONLINE");
 changeEra("FEUDAL JAPAN");
 
 /*test commands*/
-socket.send(JSON.stringify({
-    command: "MOVE_RIGHT"
-}));
-socket.send(MediaKeySession.stringify({
-    command: "MOVE_LEFT"
-}));
-socket.send(JSON.stringify({
-    command: "JUMP"
-}));
-socket.send(JSON.stringify({
-    command: "STOP"
-}));
-socket.send(JSON.stringify({
-    command: "ACTIVATE_COPTER"
-}));
-socket.send(JSON.stringify({
-    command: "REWIND"
-}));
+
 /* i hATE BUGS */

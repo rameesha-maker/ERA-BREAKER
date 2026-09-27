@@ -16,7 +16,7 @@ ERA BREAKER style.css
     min-height: 100vh ;
     font-family: Arial, sans-serif;
 
-    background: #070b14;
+    background: #209ee7;
     color: white;
     overflow-x: hidden;
     }
@@ -33,12 +33,12 @@ ERA BREAKER style.css
         height: 100%;
 
         background:
-        linear-gradient(rgba(16, 7, 20, 0.85),
-        rgba(16, 7, 20, 0.95)),
+        linear-gradient(rgba(77, 144, 245, 0.85),
+        rgba(3, 98, 175, 0.95)),
         repeating-linear-gradient(90deg,
         transparent,
         transparent 80px,
-        rgba(0,180,255,0.03)
+        rgba(0, 179, 255, 0.781)
         81px);
         z-index: -1 ;
     }
@@ -65,8 +65,8 @@ ERA BREAKER style.css
         grid-column: 1/4;
         text-align: center;
         padding: 30px;
-        border: 1px solid #dbe72c;
-        background: rgba(75, 2, 32, 0.8);
+        border: 10px solid #ce0a0a;
+        background: rgba(253, 253, 253, 0.8);
         box-shadow: 0 0 15 px rgba(82, 2, 22, 0.3);
         position:relative;
     }
@@ -77,22 +77,22 @@ ERA BREAKER style.css
         bottom: -5px;
         left: 20%;
         width: 2px;
-        background : #badf18;
+        background : #f11010;
         box-shadow:
-        0 0 10px #d3f516;
+        0 0 10px #f11010;
     }
     .header h1 {
         font-size: 45px;
         letter-spacing: 8px;
-        color: #d6fd27;
+        color: #e90e0e;
         text-shadow:
-        0 0 10px #3d073d,
+        0 0 10px #fc2828,
         0 0 25px #570e5a;
     }
     .header p {
         margin-top: 10px;
         letter-spacing: 5px;
-        color: #d1ff7d;
+        color: #fc0425;
     }
 
     /* ----panels---- */
@@ -422,9 +422,10 @@ body.modern button:hover {
     background: #18577f;
     box-shadow: 0 o 20px rgba(77,201, 255, 0.5);
 }
-
-
-
+/*future theme*/
+body.future {
+    background: #6e1480;
+}
 
 
  
