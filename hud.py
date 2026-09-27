@@ -31,8 +31,12 @@ class HUD:
         copter = getattr(gadgets,"has_copter",False)
         time_machine = getattr(gadgets,"has_time_machine",False)
         copter_active = getattr(gadgets,"copter_active",False)
-        self.draw_text(screen,"Bamboo copter:"+("READY" if copter else "LOCKED"),180,10)
-        self.draw_text(screen,"Tme Machine: "+("READY" if time_machine else "LOCKED",180,35))
+        self.draw_text(screen,"Bamboo copter:"+("READY" if 
+                                                copter else "LOCKED"),180,
+                                                10)
+        self.draw_text(screen,"Tme Machine: " + ("READY" if
+                                                  time_machine else "LOCKED"),180,
+                                                  35)
         if copter_active:
             fuel = getattr(gadgets,"copter_fuel",0)
             max_fuel = getattr(gadgets,"max_copter_fuel",1)
@@ -47,7 +51,14 @@ class HUD:
         self.draw_text(screen,"SPACE=Jump",220,65)
         self.draw_text(screen,"T = Time Machine",400,65)
         
-                               
+    def draw_notifications(self,screen,message):
+        font = pygame.font.SysFont("arial",26,bold = True)
+        text = font.render(message,True,(255,255,255))
+        background = pygame.Surface((text.get_width()+40,50),pygame.SRCALPHA)
+        background.fill((0,0,0,180))
+        x = (screen.get_width()-background.get_width())//2
+        screen.blit(background,(x,100))
+        screen.blit(text,(x+20,112))                           
                                
                                
     
